@@ -11,7 +11,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "hsl(var(--background))",
+        background: "#F0EEE9",
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -40,6 +40,15 @@ export default {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        rred: {
+          DEFAULT: "#FF0000",
+        },
+        yyellow: {
+          DEFAULT: "#FFF600",
+        },
+        bblue: {
+          DEFAULT: "#0040FF",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
