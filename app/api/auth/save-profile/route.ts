@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const { userId, username, name, birthday, location } = await request.json();
+    const { userId, email, username, name, birthday, location } =
+      await request.json();
 
-    if (!userId || !username || !name || !birthday || !location) {
+    if (!userId || !email || !username || !name || !birthday || !location) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 },
@@ -44,6 +45,7 @@ export async function POST(request: NextRequest) {
     const { error } = await supabase.from("profiles").upsert(
       {
         id: userId,
+        email,
         username: username.toLowerCase(),
         full_name: name,
         birthday,
