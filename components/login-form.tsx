@@ -41,18 +41,19 @@ export function LoginForm({
       const isEmail = emailOrUsername.includes("@");
 
       if (!isEmail) {
-        // Query the profiles table to get the email for this username
-        const { data: profile, error: profileError } = await supabase
-          .from("profiles")
-          .select("email")
-          .eq("username", emailOrUsername.toLowerCase())
-          .single();
+        // Call server endpoint to get the email for this username
+        const response = await fetch("/api/auth/get-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: emailOrUsername }),
+        });
 
-        if (profileError || !profile) {
+        if (!response.ok) {
           throw new Error("Invalid username or password");
         }
 
-        email = profile.email;
+        const data = await response.json();
+        email = data.email;
       }
 
       // Sign in with email and password
