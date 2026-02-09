@@ -34,25 +34,35 @@ export function LoginForm({
     setError(null);
 
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          emailOrUsername,
-          password,
-        }),
-      });
+      const supabase = createClient();
 
-      const data = await response.json();
+      // First, find the email if a username was provided
+      let email = emailOrUsername;
+      const isEmail = emailOrUsername.includes("@");
 
-      if (!response.ok) {
-        throw new Error(data.error || "Login failed");
+      if (!isEmail) {
+        // Query the profiles table to get the email for this username
+        const { data: profile, error: profileError } = await supabase
+          .from("profiles")
+          .select("email")
+          .eq("username", emailOrUsername.toLowerCase())
+          .single();
+
+        if (profileError || !profile) {
+          throw new Error("Invalid username or password");
+        }
+
+        email = profile.email;
       }
 
-      // Update Supabase client session
-      const supabase = createClient();
-      if (data.session) {
-        await supabase.auth.setSession(data.session);
+      // Sign in with email and password
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        throw new Error(error.message || "Invalid credentials");
       }
 
       router.push("/protected");
