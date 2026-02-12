@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { Barriecito } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
@@ -19,6 +20,12 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const barriecito = Barriecito({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-barriecito", // This creates a CSS variable
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.className} antialiased bg-background text-foreground`}
+        className={`${geistSans.className} ${barriecito.variable} font-sans antialiased bg-background text-foreground`}
       >
         <ThemeProvider
           attribute="class"

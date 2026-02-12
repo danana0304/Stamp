@@ -3,27 +3,30 @@ import { AuthButton } from "@/components/auth-button";
 import { hasEnvVars } from "@/lib/utils";
 import { Suspense } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Logo from "../../app/assets/stamp.svg";
 
-export default function ProtectedLayout({
+export default function PostboxLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <main className=" min-h-screen flex flex-col items-center">
+    <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
         <nav className="w-full flex justify-center h-16">
           <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
             <div className="flex gap-5 justify-center font-semibold">
-              <div className="flex items-center gap-2">
-                <Image
-                  height={120}
-                  width={120}
-                  src={Logo.src}
-                  alt="Stamp Logo"
-                />
-              </div>
+              <Link href="/protected">
+                <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+                  <Image
+                    height={120}
+                    width={120}
+                    src={Logo.src}
+                    alt="Stamp Logo"
+                  />
+                </div>
+              </Link>
             </div>
             {!hasEnvVars ? (
               <EnvVarWarning />
@@ -39,7 +42,6 @@ export default function ProtectedLayout({
         </div>
         <footer className="w-full flex items-center justify-center mx-auto text-center text-xs gap-8 py-16">
           <p>© 2026 Stamp. All rights reserved.</p>
-          {/* <ThemeSwitcher /> */}
         </footer>
       </div>
     </main>

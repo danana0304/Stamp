@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        barriecito: ["var(--font-barriecito)", "sans-serif"],
+      },
       colors: {
         background: "#F0EEE9",
         foreground: "#1A1A1A",

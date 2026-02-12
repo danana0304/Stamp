@@ -2,7 +2,6 @@
 
 import { Suspense, useState, useEffect } from "react";
 // import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -108,14 +107,6 @@ export default function PostboxPage() {
 
   return (
     <div className="flex-1 w-full flex flex-col gap-8 justify-center items-center">
-      <div className="w-full max-w-2xl flex justify-start mb-4">
-        <Link href="/protected">
-          <Button variant="outline" className="gap-2">
-            ← Back
-          </Button>
-        </Link>
-      </div>
-
       <div className="flex flex-col gap-2 items-center">
         <h1 className="text-4xl font-bold">Create a Postcard</h1>
         <p className="text-muted-foreground">
